@@ -2,14 +2,19 @@ package com.faisal.backend.service;
 
 import com.faisal.backend.model.UserProperty;
 import com.faisal.backend.repository.PropertyRepository;
+import com.faisal.backend.specs.PropertySpecification;
 import com.faisal.backend.util.CustomRandomGenerator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.PredicateSpecification;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -98,6 +103,36 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public UserProperty getUserPropertyByGeneratedUUID(UserProperty userProperty) {
         return  propertyRepository.findByGeneratedUUID(userProperty.getGeneratedUUID());
+    }
+
+    @Override
+    public List<UserProperty> getAllProperty() {
+        return propertyRepository.findAll();
+    }
+
+    @Override
+    public List<UserProperty> getAllProperty(String state, String district, Pageable pageable) {
+
+        Specification<UserProperty> properList = Specification
+                .where(PropertySpecification.hasState(state))
+                .or(PropertySpecification.hasDistrict(district));
+
+        return propertyRepository.findAll(properList);
+    }
+
+    @Override
+    public List<UserProperty> getAllProperty(Pageable pageable) {
+        return List.of();
+    }
+
+    @Override
+    public List<UserProperty> getAllProperty(Pageable pageable, Long userId, int page, int size) {
+        return List.of();
+    }
+
+    @Override
+    public List<UserProperty> getAllProperty(Predicate<UserProperty> predicate) {
+        return List.of();
     }
 
     private boolean validateConcurrentStamp(UserProperty userProperty) {

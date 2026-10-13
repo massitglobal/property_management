@@ -24,13 +24,17 @@ public class UserProperty {
     private double propertyValue;
     private int room;
     private int bathroom;
-    private double squareFeet;
+    private double squareFeet ;
 
     private String description;
 
     private String remarks ;
 
     private Character status;
+
+    private String state;
+
+    public String district;
 
     //prevent hacking by auto increment
     private String generatedUUID;
