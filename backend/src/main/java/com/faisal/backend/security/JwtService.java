@@ -24,6 +24,7 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
+    //create access token for 15 minit
     public String createAccessToken(String username, List<String> roles) {
         return Jwts.builder()
                 .subject(username)
@@ -34,6 +35,7 @@ public class JwtService {
                 .signWith(key).compact();
     }
 
+    // do cycle / refresh token on 7 days
     public String createRefreshToken(String username) {
         return Jwts.builder()
                 .subject(username)
@@ -43,6 +45,7 @@ public class JwtService {
                 .signWith(key).compact();
     }
 
+    //validate the cycle token
     public String validateRefreshToken(String token) {
         Claims c = Jwts.parser().verifyWith(key).build()
                 .parseSignedClaims(token).getPayload();
