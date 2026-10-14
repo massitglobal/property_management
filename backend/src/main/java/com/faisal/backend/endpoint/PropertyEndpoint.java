@@ -79,4 +79,12 @@ public class PropertyEndpoint {
         return ResponseEntity.ok().body(list);
     }
 
+    @PostMapping("/update/{guid}")
+    public ResponseEntity<?> updateProperty(@PathVariable String guid, @RequestBody UserProperty property) {
+
+        GeneralRestTemplate<ResponseProperty> restTemplate = new GeneralRestTemplate<>();
+
+        return ResponseEntity.ok(restTemplate);
+    }
+
 }

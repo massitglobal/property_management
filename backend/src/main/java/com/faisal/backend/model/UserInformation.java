@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "user_information")
 @Setter
@@ -19,11 +22,17 @@ public class UserInformation {
     private Long id;
 
     private String username;
-    private String password;
+    private String passwordHash;
     private String email;
 
     private String generatedUUID;
 
     private Character status;
+    private Boolean enabled;
+
+    @ElementCollection
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    private Set<String> roles =  new HashSet<>();
 
 }

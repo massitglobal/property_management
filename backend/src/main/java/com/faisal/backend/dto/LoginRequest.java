@@ -14,6 +14,7 @@ public class LoginRequest {
     private String username;
     private String password;
     private String email;
-    private String token;
+    private String accessToken;
+    private String refreshToken;
 
 }
