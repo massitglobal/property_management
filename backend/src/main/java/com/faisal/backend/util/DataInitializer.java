@@ -1,5 +1,6 @@
 package com.faisal.backend.util;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.faisal.backend.model.UserInformation;
@@ -12,7 +13,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
+/*
+this is the class to initialized user to be used in the system
+for this assesment, i just put some dummy data. in production : usually the run by script
+or created by dba
+ */
 
 @Component
 public class DataInitializer implements ApplicationRunner {
@@ -54,6 +59,10 @@ public class DataInitializer implements ApplicationRunner {
         u.setPasswordHash(encoder.encode(rawPassword));
         u.setEnabled(true);
         u.getRoles().addAll(roles);
+        u.setGeneratedUUID(CustomRandomGenerator.generateUUID());
+        u.setCreatedBy("SYSTEM");
+        u.setCreatedDate(LocalDateTime.now());
+        u.setStatus('A');
         repo.save(u);
         log.info("Seeded user '{}' with roles {}", username, roles);
     }

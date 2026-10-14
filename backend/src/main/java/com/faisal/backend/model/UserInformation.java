@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,5 +35,11 @@ public class UserInformation {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private Set<String> roles =  new HashSet<>();
+
+    //audit trail
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
+    private String createdBy;
+    private String modifiedBy;
 
 }
