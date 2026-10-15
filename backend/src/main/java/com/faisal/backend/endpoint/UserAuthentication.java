@@ -52,6 +52,8 @@ public class UserAuthentication {
         loginRequest.setAccessToken(jwt.createAccessToken(loginRequest.getUsername(), roles));
         loginRequest.setRefreshToken(jwt.createRefreshToken(loginRequest.getUsername()));
         loginResponse.setData(loginRequest);
+        loginResponse.setResponseCode("00");
+        loginResponse.setResponseMessage("login success");
 
         return ResponseEntity.ok(loginResponse);
     }
