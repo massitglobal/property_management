@@ -3,6 +3,7 @@ package com.faisal.backend.endpoint;
 
 import com.faisal.backend.dto.GeneralRestTemplate;
 import com.faisal.backend.dto.LoginRequest;
+import com.faisal.backend.dto.UserRegistration;
 import com.faisal.backend.model.UserRoles;
 import com.faisal.backend.security.JwtService;
 import lombok.extern.java.Log;
@@ -53,6 +54,18 @@ public class UserAuthentication {
         loginResponse.setData(loginRequest);
 
         return ResponseEntity.ok(loginResponse);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistration registration){
+
+        GeneralRestTemplate<UserRegistration> registerResponse = new GeneralRestTemplate<>();
+
+        registerResponse.setResponseCode("201");
+        registerResponse.setResponseMessage("User Registration Successful");
+
+        return  ResponseEntity.ok(registerResponse);
+
     }
 
 
